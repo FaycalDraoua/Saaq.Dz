@@ -1,68 +1,124 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <title>TP02 - Développement Web</title>
-    <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8" />
+  <title>TP02 - Développement Web</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-    <header>
-        <h1>Soumissions d'assurance auto</h1>
-    </header>
-    <main>
-        <form action="" method="post">
-            <div class="form-group">
+  <header class="site-header">
+    <h1>Soumissions d’assurance auto</h1>
+  </header>
 
-                <p>Veuillez remplir le formulaire ci-dessous pour soumettre votre demande d'assurance auto.</p>
+  <main class="page">
+    <!-- Carte -->
+    <section class="form-card">
+      <div class="form-card__intro">
+        <div class="form-card__icon" aria-hidden="true"></div>
+        <h2 class="form-card__title">Formulaire d’adresse</h2>
+        <p class="form-card__subtitle">
+          Veuillez remplir le formulaire ci-dessous pour soumettre votre demande d’assurance auto.
+          Les champs marqués d’un <span class="req">*</span> sont obligatoires.
+        </p>
+      </div>
 
-                <label for="genre">Quel est votre genre ?</label>
-                <select name="genre" id="genre">
-                    <option value="homme">Homme</option>
-                    <option value="femme">Femme</option>
-                    <option value="non-binaire">Non-binaire</option>
-                </select>
-                <br><br>
+      <form action="" method="post" novalidate>
+        <!-- Nom complet -->
+        <div class="form-group">
+          <label for="fullname">Nom complet <span class="req">*</span></label>
+          <input type="text" id="fullname" name="fullname" placeholder="Entrez votre nom complet" required>
+        </div>
 
-                <label for="date-naissance">Quel est votre date de naissance ?</label>
-                <input type="date" id="date-naissance" name="date-naissance">
-                <br><br>
+        <!-- Email -->
+        <div class="form-group">
+          <label for="email">Adresse courriel <span class="req">*</span></label>
+          <input type="email" id="email" name="email" placeholder="Entrez votre courriel" required>
+        </div>
 
-                <label for="valeur-achat">Quelle est la valeur d'achat de votre véhicule ?</label>
-                <input type="number" name="valeur-achat" id="valeur-achat">
-                <br><br>
+        <!-- Genre -->
+        <div class="form-group">
+          <label for="genre">Quel est votre genre ? <span class="req">*</span></label>
+          <select name="genre" id="genre" required>
+            <option value="" selected disabled>Choisissez…</option>
+            <option value="homme">Homme</option>
+            <option value="femme">Femme</option>
+            <option value="non-binaire">Non-binaire</option>
+            <option value="prefere-ne-pas-dire">Je préfère ne pas répondre</option>
+          </select>
+        </div>
 
-                <label for="date-fabrication">Quelle est la date de fabrication de votre véhicule ?</label>
-                <input type="number" id ="date-fabrication" name="date-fabrication">
-                <br><br>
+        <!-- Date de naissance -->
+        <div class="form-group">
+          <label for="date-naissance">Date de naissance <span class="req">*</span></label>
+          <input type="date" id="date-naissance" name="date-naissance" required>
+        </div>
 
-                <label for="kilometre">Combien de kilomètres parcourez-vous par année ?</label>
-                <input type="number" id="kilometre" name="kilometre">
-                <br><br>
+        <!-- Valeur d'achat -->
+        <div class="form-group">
+          <label for="valeur-achat">Valeur d’achat du véhicule (CAD) <span class="req">*</span></label>
+          <input type="number" id="valeur-achat" name="valeur-achat" placeholder="Ex. 15000" min="0" step="100" required>
+        </div>
 
-                <label for="camera-recul">Est-ce que votre véhicule possède une caméra de recul ?</label>
-                <input type="radio" id="camera-recul-oui" name="camera-recul" value="1">
-                <label for="camera-recul-oui">Oui</label>
-                <input type="radio" id="camera-recul-non" name="camera-recul" value="0">
-                <label for="camera-recul-non">Non</label>
-                <br><br>
+        <!-- Date fabrication (année) -->
+        <div class="form-group">
+          <label for="date-fabrication">Année de fabrication <span class="req">*</span></label>
+          <input type="number" id="date-fabrication" name="date-fabrication" placeholder="Ex. 2018" min="1980" max="2099" required>
+        </div>
 
-                <label for="reclamation">Avez-vous fait des réclamations d'assurance auto dans les 6 dernières années ?</label>
-                <input type="radio" name="reclamation" id="reclamation-oui" value="1">
-                <label for="reclamation-oui">Oui</label>
-                <input type="radio" name="reclamation" id="reclamation-non" value="0">
-                <label for="reclamation-non">Non</label>
-                <br><br>
+        <!-- Kilométrage annuel -->
+        <div class="form-group">
+          <label for="kilometre">Kilométrage annuel (km) <span class="req">*</span></label>
+          <input type="number" id="kilometre" name="kilometre" placeholder="Ex. 12000" min="0" step="100" required>
+        </div>
 
-                <input type="button" value="Soumettre">
+        <!-- Caméra de recul -->
+        <fieldset class="form-group">
+          <legend>Caméra de recul <span class="optional">(optionnel)</span></legend>
+          <div class="radio-row">
+            <label class="radio">
+              <input type="radio" name="camera-recul" value="1">
+              <span>Oui</span>
+            </label>
+            <label class="radio">
+              <input type="radio" name="camera-recul" value="0">
+              <span>Non</span>
+            </label>
+          </div>
+        </fieldset>
 
-            </div>
-            
-        </form> 
-    </main>
-    <footer>
-        
-    </footer>
+        <!-- Réclamations -->
+        <fieldset class="form-group">
+          <legend>Réclamations d’assurance auto (6 dernières années) <span class="req">*</span></legend>
+          <div class="radio-row">
+            <label class="radio">
+              <input type="radio" name="reclamation" value="1" required>
+              <span>Oui</span>
+            </label>
+            <label class="radio">
+              <input type="radio" name="reclamation" value="0" required>
+              <span>Non</span>
+            </label>
+          </div>
+        </fieldset>
 
-    <script src="script.js"></script>
+        <!-- Consentement -->
+        <label class="checkbox">
+          <input type="checkbox" name="confirm" required>
+          <span>Je confirme que les informations fournies sont exactes et complètes.</span>
+        </label>
+
+        <!-- Bouton -->
+        <button type="submit" class="btn-primary">Soumettre la demande</button>
+      </form>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>&copy; 2025 — Démo formulaire</p>
+  </footer>
 </body>
 </html>
