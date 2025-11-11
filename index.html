@@ -10,33 +10,39 @@
         <h1>Soumissions d'assurance auto</h1>
     </header>
     <main>
-        <form action="" method="post">
+        <form action="" method="post" id="formulaire">
             <div class="form-group">
 
                 <p>Veuillez remplir le formulaire ci-dessous pour soumettre votre demande d'assurance auto.</p>
 
                 <label for="genre">Quel est votre genre ?</label>
                 <select name="genre" id="genre">
+                    <option value="" disabled selected hidden> - Sélectionnez un genre - </option>
                     <option value="homme">Homme</option>
                     <option value="femme">Femme</option>
                     <option value="non-binaire">Non-binaire</option>
                 </select>
+                <span id="genre-error" class="error-message"></span>
                 <br><br>
 
                 <label for="date-naissance">Quel est votre date de naissance ?</label>
-                <input type="date" id="date-naissance" name="date-naissance">
+                <input type="date" id="date-naissance" name="date-naissance" >
+                <span id="date-naissance-error" class="error-message"></span>
                 <br><br>
 
                 <label for="valeur-achat">Quelle est la valeur d'achat de votre véhicule ?</label>
                 <input type="number" name="valeur-achat" id="valeur-achat">
+                <span id="valeur-achat-error" class="error-message"></span>
                 <br><br>
 
                 <label for="date-fabrication">Quelle est la date de fabrication de votre véhicule ?</label>
                 <input type="number" id ="date-fabrication" name="date-fabrication">
+                <span id="date-fabrication-error" class="error-message"></span>
                 <br><br>
 
-                <label for="kilometre">Combien de kilomètres parcourez-vous par année ?</label>
-                <input type="number" id="kilometre" name="kilometre">
+                <label for="kilometrage">Combien de kilomètres parcourez-vous par année ?</label>
+                <input type="number" id="kilometrage" name="kilometrage">
+                <span id="kilometrage-error" class="error-message"></span>
                 <br><br>
 
                 <label for="camera-recul">Est-ce que votre véhicule possède une caméra de recul ?</label>
@@ -44,6 +50,7 @@
                 <label for="camera-recul-oui">Oui</label>
                 <input type="radio" id="camera-recul-non" name="camera-recul" value="0">
                 <label for="camera-recul-non">Non</label>
+                <span id="camera-recul-error" class="error-message"></span>
                 <br><br>
 
                 <label for="reclamation">Avez-vous fait des réclamations d'assurance auto dans les 6 dernières années ?</label>
@@ -51,16 +58,33 @@
                 <label for="reclamation-oui">Oui</label>
                 <input type="radio" name="reclamation" id="reclamation-non" value="0">
                 <label for="reclamation-non">Non</label>
+                <span id="reclamation-error" class="error-message"></span>
                 <br><br>
 
-                <input type="button" value="Soumettre">
+                <div id="nombre-reclamation-container" hidden>
+                    <label for="nombre-reclamation">Combien de réclamations avez-vous faites ?</label>
+                    <input type="number" id="nombre-reclamation" name="nombre-reclamation">
+                    <span id="nombre-reclamation-error" class="error-message"></span>
+                    <br><br>
+                </div>
+
+                <div id="montant-reclamation-container" hidden>
+                    <label for="montant-reclamation" id="montant-reclamation-label"></label>
+                    <input type="number" id="montant-reclamation" name="montant-reclamation">
+                    <span id="montant-reclamation-error" class="error-message"></span>
+                    <br><br>
+                </div>
+                
+                
+
+                <input type="submit" value="Soumettre">
 
             </div>
             
         </form> 
     </main>
     <footer>
-        
+
     </footer>
 
     <script src="script.js"></script>
