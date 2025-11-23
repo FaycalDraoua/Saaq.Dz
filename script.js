@@ -18,6 +18,10 @@
  * Récupère les données du formulaire et les retourne sous forme d'objet 
  * @return {object} données du formulaire
  */
+/* 
+ * Récupère les données du formulaire et les retourne sous forme d'objet 
+ * @return {object} données du formulaire
+ */
 function donneesFormulaire() {
     let data = {
         genre: genre.value,
@@ -188,6 +192,7 @@ function validateGenre() {
     document.getElementById("genre-error").textContent = "";
   }
     return ok;
+    return ok;
 }
 genre.addEventListener("blur", function() {
    if (validateGenre()) {
@@ -195,6 +200,10 @@ genre.addEventListener("blur", function() {
    }
 });
 
+/* 
+ * validation de la date de naissance 
+ * @return {boolean} true si la date de naissance est valide, false sinon
+ */
 /* 
  * validation de la date de naissance 
  * @return {boolean} true si la date de naissance est valide, false sinon
@@ -208,6 +217,7 @@ function validateDateNaissance() {
         document.getElementById("date-naissance-error").textContent = "";  
     }
     return ok;
+    return ok;
 }
 dateNaissance.addEventListener("blur", function() {
    if (validateDateNaissance()) {
@@ -215,6 +225,10 @@ dateNaissance.addEventListener("blur", function() {
    }
 });
 
+/* 
+ * validation de la valeur d'achat
+ * @return {boolean} true si la valeur d'achat est valide, false sinon
+ */
 /* 
  * validation de la valeur d'achat
  * @return {boolean} true si la valeur d'achat est valide, false sinon
@@ -232,6 +246,7 @@ function validateValeurAchat() {
         document.getElementById("valeur-achat-error").textContent = "";
     }
     return !Number.isNaN(valeur) && valeur > 0;
+    return !Number.isNaN(valeur) && valeur > 0;
 }
 valeurAchat.addEventListener("blur", function() {
    if (validateValeurAchat()) {
@@ -239,6 +254,10 @@ valeurAchat.addEventListener("blur", function() {
    }
 });
 
+/*
+ * validation de la date de fabrication
+ * @return {boolean} true si la date de fabrication est valide, false sinon
+ */
 /*
  * validation de la date de fabrication
  * @return {boolean} true si la date de fabrication est valide, false sinon
@@ -253,6 +272,7 @@ function validateDateFabrication() {
         document.getElementById("date-fabrication-error").textContent = "";
     }
     return !Number.isNaN(annee) && annee >= 1900 && annee <= new Date().getFullYear();
+    return !Number.isNaN(annee) && annee >= 1900 && annee <= new Date().getFullYear();
 }
 dateFabrication.addEventListener("blur", function() {
    if (validateDateFabrication()) {
@@ -260,6 +280,10 @@ dateFabrication.addEventListener("blur", function() {
    }
 });
 
+/* 
+ * validation du kilométrage
+ * @return {boolean} true si le kilométrage est valide, false sinon
+ */
 /* 
  * validation du kilométrage
  * @return {boolean} true si le kilométrage est valide, false sinon
@@ -276,6 +300,7 @@ function validateKilometrage() {
     } else {
         document.getElementById("kilometrage-error").textContent = "";
     }   
+    return !Number.isNaN(kilometrageValue) && kilometrageValue >= 0;
     return !Number.isNaN(kilometrageValue) && kilometrageValue >= 0;
 }
 kilometrage.addEventListener("blur", function() {
@@ -342,6 +367,10 @@ function visibilityNombreReclamation() {
 avecReclamation.addEventListener("change", visibilityNombreReclamation);
 sansReclamation.addEventListener("change", visibilityNombreReclamation);
 
+/* 
+ * validation du nombre de réclamations 
+ * @return {boolean} true si le nombre de réclamations est valide, false sinon
+ */
 /* 
  * validation du nombre de réclamations 
  * @return {boolean} true si le nombre de réclamations est valide, false sinon
@@ -432,6 +461,9 @@ function resetSaisieMontants(hide = false) {
   if (hide) {
     contMontant.setAttribute("hidden", "true");
   }
+  if (hide) {
+    contMontant.setAttribute("hidden", "true");
+  }
 }
 
 /*  Mettre à jour le label selon l’étape courante  */
@@ -442,6 +474,7 @@ function majLabelMontant() {
   } else {
     // Fin de saisie
     labelMontant.textContent =
+      "Montant total réclamé : " + total.toFixed(2) + " $";
       "Montant total réclamé : " + total.toFixed(2) + " $";
   }
 }
@@ -515,6 +548,7 @@ function calculMontantAssuranceAnnuelle() {
 
 // Quand l'utilisateur QUITTE le champ nombre :
 nombreReclamation.addEventListener("blur", function() {
+nombreReclamation.addEventListener("blur", function() {
   const ok = validateNombreReclamation(); 
   if (ok) {
     const n = parseInt(nombreReclamation.value);
@@ -526,7 +560,9 @@ nombreReclamation.addEventListener("blur", function() {
 });
 
 // Quand l'utilisateur QUITTE le champ montant ou appuie sur Entrée :
+// Quand l'utilisateur QUITTE le champ montant ou appuie sur Entrée :
 montantReclamation.addEventListener("blur", traiterMontantCourant);
+montantReclamation.addEventListener("keydown", function(e) {
 montantReclamation.addEventListener("keydown", function(e) {
   if (e.key === "Enter") {
     e.preventDefault();
@@ -552,6 +588,21 @@ function afficherEtMasquerMessages(id, duree = 5000) {
 /* gestion de la soumission du formulaire */
 form.addEventListener("submit", function (event) {
     event.preventDefault(); 
+
+    if (!validerFormulaire()) {
+        alert("Le formulaire contient des erreurs. Veuillez les corriger avant de soumettre.");
+        return;
+    }
+    if (casNonAssures()) {
+        alert("Désolé, vous ne pouvez pas être assuré en raison de critères non assurables.");
+    }else { 
+        alert("Félicitations! Votre formulaire a été soumis avec succès." +
+              "\nMontant de l'assurance annuelle : " + calculMontantAssuranceAnnuelle().toFixed(2) + " $");
+    }
+    reinitialiserFormulaire();
+
+    console.log(calculAge());
+    console.log(ageVehicule());
 
     if (!validerFormulaire()) {
        afficherEtMasquerMessages("error-message-formulaire");
